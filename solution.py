@@ -10,7 +10,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    port = "1025"
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
    clientsocket = socket(AF_INET, SOCK_STREAM)
-   clientsocket.connect((mailserver,mailport))
+   clientsocket.connect((mailserver,port))
    recv = mailclientsocket.recv(1024)
    #print (recv)
    #if recv[:3] != '250':
