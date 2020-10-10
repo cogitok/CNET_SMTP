@@ -28,9 +28,9 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Send MAIL FROM command and print server response.
    mailfrom = 'Mail from: <jonanthonyhenderson@gmail.com\r\n'
    clientsocket.send(mailfrom)
-   recv1 = clientsocket.recv(1024)
+   recv2 = clientsocket.recv(1024)
    #print (recv1)
-   if rec1[:3] != '250':
+   if recv2[:3] != '250':
        #print("250 reply not received")
 
 
@@ -38,9 +38,9 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    rcptToCommand = 'RCPT TO: <nojfree@gmail.com>\r\n'
    #print (rcptToCommand)
    clientsocket.send(rcptToCommand)
-   recv1 = clientsocket.recv(1024)
+   recv3 = clientsocket.recv(1024)
    #print (recv1)
-   if recv1[:3] != '250':
+   if recv3[:3] != '250':
       # print ("250 reply to received")
 
 
@@ -48,9 +48,9 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Send DATA command and print server response.
    dataCmd = 'DATA\r\n'
    clientsocket.send(dataCmd)
-   recv1 = clientsocket.recv(1024)
+   recv4 = clientsocket.recv(1024)
    #print (recv1)
-   if recv1[:3] != '250'
+   if recv4[:3] != '250'
      #  print('250 reply not received')
 
    # Send message data.
@@ -60,9 +60,9 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Message ends with a single period.
    clientsocket.send(endmsg)
    #print ('End message is: ', endmsg)
-   recv1 = clientsocket.recv(1024)
+   recv5 = clientsocket.recv(1024)
    #print (recv1)
-   if recv1[:3] != ‘250’:
+   if recv5[:3] != ‘250’:
       # print (‘250 reply not recieved from server.’)
 
 
