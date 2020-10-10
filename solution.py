@@ -4,69 +4,82 @@ from socket import *
 def smtp_client(port=1025, mailserver='127.0.0.1'):
    msg = "\r\n My message"
    endmsg = "\r\n.\r\n"
-   emailTo = "jonanthonyhenderson@gmail.com"
-   emailFrom: "jonanthonyhenderson@gmail.com" 
-   # Create socket called clientSocket and establish a TCP connection with mailserver and port
-   clientSocket = socket(AF_INET, SOCK_STREAM)
-   clientSocket.connect((mailserver,port))
 
-   recv = clientSocket.recv(1024).decode()
- #  print(recv)
-   if recv[:3] != '220':
-  #     print('220 reply not received from server.')
+   # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
+   mailserver = "127.0.0.1"
+   mailport = "1025"
+   # Create socket called clientSocket and establish a TCP connection with mailserver and port
+   clientsocket = socket(AF_INET, SOCK_STREAM)
+   clientsocket.connect((mailserver,mailport))
+   recv = mailclientsocket.recv(1024)
+   #print (recv)
+   if recv[:3] != '250':
+    #   print ('220 reply not received')
+
 
    # Send HELO command and print server response.
-   heloCommand = ('HELO Alice\r\n')
+   heloCommand = 'HELO Alice\r\n'
    clientSocket.send(heloCommand.encode())
    recv1 = clientSocket.recv(1024).decode()
-  # print(recv1)
+   #print(recv1)
    if recv1[:3] != '250':
-   #    print('250 reply not received from server.')
+     #  print('250 reply not received from server.')
 
    # Send MAIL FROM command and print server response.
+   mailfrom = 'Mail from: <jonanthonyhenderson@gmail.com\r\n'
+   clientsocket.send(mailfrom)
+   recv1 = clientsocket.recv(1024)
+   #print (recv1)
+   if rec1[:3] != '250':
+       #print("250 reply not received")
 
-   #print("Sending MAIL from CMD")
-   mailfromcmd = ('MAIL FROM: ' + emailFrom + '\r\n')  
-   clientSocket.send(mailfromcmd.encode())
-   recv2 = clientSocket.recv(1024).decode()
-   #print(recv2)
-   if recv1[:3] !='250':
-    #  print('250 reply not received')
 
    # Send RCPT TO command and print server response.
-   #print("Sending RCPT")
-   rcptToCmd = ('RCPT TO:' + emailTo + '\r\n')
-   clientSocket.send(rcptToCmd.encode())
-   recv3 = clientSocket.recv(1024).decode()
+   rcptToCommand = 'RCPT TO: <nojfree@gmail.com>\r\n'
+   #print (rcptToCommand)
+   clientsocket.send(rcptToCommand)
+   recv1 = clientsocket.recv(1024)
+   #print (recv1)
    if recv1[:3] != '250':
-      #print(recv3)
-
-   #print("Sending DATA")
-    datacmd = ('DATA\r\n')
-    clientSocket.send(datacmd.encode())
-    recv4 = clientSocket.recv(1024).decode()
-   #print(recv4)
-    if recv4[:3] !='354':
-     # print('354 reply not received')
-
-   
-   clientSocket.send(msg.encode())
-   clientSocket.send('TEST MESSAGE'.encode())
-   clientSocket.send(msg.encode())
+      # print ("250 reply to received")
 
 
-   clientSocket.send(endmsg.encode())
-   recv5 = clientSocket.recv(1024).decode()
-   #print(recv5)
-   if recv5[:3] != '250':
-      # print('250 reply not receieved')
-       
-    quitCommand = 'QUIT\r\n","utf-8'
-   clientSocket.send(quitCommand.encode())
-   recv6 = clientSocket.recv(1024).decode()
-   #print(recv6)  
-   if recv6[:3] != '221':
-       #print('221 REPLY not received')
+  
+   # Send DATA command and print server response.
+   dataCmd = 'DATA\r\n'
+   clientsocket.send(dataCmd)
+   recv1 = clientsocket.recv(1024)
+   #print (recv1)
+   if recv1[:3] != '250'
+     #  print('250 reply not received')
 
-    if __name__ == '__main__':
-       smtp_client(1025,'127.0.0.1')
+   # Send message data.
+   clientsocket.send(msg)
+   #print ('Message is: , msg')
+
+   # Message ends with a single period.
+   clientsocket.send(endmsg)
+   #print ('End message is: ', endmsg)
+   recv1 = clientsocket.recv(1024)
+   #print (recv1)
+   if recv1[:3] != ‘250’:
+      # print (‘250 reply not recieved from server.’)
+
+
+   # Send QUIT command and get server response.
+
+ quitCommand = ‘QUIT\r\n’
+ clientsocket.send(quitCommand)
+ recv1 = SMTPClientSocket.recv(1024)
+ #rint recv1
+ if recv1[:3] != ‘250’:
+     #print (‘250 reply not recieved from server.’)
+
+
+
+
+if __name__ == '__main__':
+   smtp_client(1025, '127.0.0.1')
+
+
+
