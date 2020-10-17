@@ -14,15 +14,15 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
         #print('220 reply not received from server.')
 
     # Send HELO command and print server response.
-    heloCommand = 'HELO gmail.com\r\n'
-    clientSocket.send(heloCommand.encode())
+    heloCommand = 'ELO gmail.com\r\n'
+    clientsocket.send(heloCommand.encode())
     recv1 = clientSocket.recv(1024).decode()
     #print(recv1)
     #if recv1[:3] != '250':
         #print('250 reply not received from server.')
 
     # Send MAIL FROM command and print server response.
-    mailfrom = 'MAIL FROM: <nojfree@gmail.com\r\n'
+    mailfrom = 'MAIL FROM: nojfree@gmail.com\r\n'
     clientsocket.send(mailfrom.encode())
     recv2 = clientsocket.recv(1024).decode()
     #print(recv2)
@@ -30,7 +30,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
         #print('250 reply not received from server')
 
     # Send RCPT TO command and print server response.
-    rcptto = 'RCPT TO: <jonanthonyhenderson@gmail.com>\r\n'
+    rcptto = 'RCPT TO: jonanthonyhenderson@gmail.com\r\n'
     clientsocket.send(rcptto.encode())
     recv3 = clientsocket.recv(1024).decode()
     #print(recv3)
@@ -45,12 +45,11 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
        #print('reply not recveied ')
 
     clientsocket.send('SUBJECT: HELLO\r\n'.encode())
-    clientsocket.send('Test Message'.encode())
     clientsocket.send(msg).encode()
 
     # end message with single period
     clientsocket.send(endmsg.encode())
-    rev5 = clientsocket.recv(1024).decode()
+    recv5 = clientsocket.recv(1024).decode()
     #print(recv5)
     #if recv5[:3] != '250':
         #print('250 reply not received')
